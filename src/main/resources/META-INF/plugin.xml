@@ -1,18 +1,18 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>org.jetbrains.plugins.template</id>
-    <name>IntelliJ Platform Plugin Template</name>
-    <vendor>JetBrains</vendor>
+    <id>com.github.lauvsong.refactorgpt</id>
+    <name>refactor-gpt Template</name>
+    <vendor>lauvsong</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="org.jetbrains.plugins.template.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow factoryClass="com.github.lauvsong.refactorgpt.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="org.jetbrains.plugins.template.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>
+        <listener class="com.github.lauvsong.refactorgpt.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>
     </applicationListeners>
 </idea-plugin>
