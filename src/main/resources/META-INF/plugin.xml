@@ -1,18 +1,36 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.lauvsong.refactorgpt</id>
-    <name>refactor-gpt Template</name>
-    <vendor>lauvsong</vendor>
+    <id>lauvsong.refactorgpt</id>
+    <name>RefactorGPT</name>
+    <vendor
+        url="https://github.com/lauvsong/refactor-gpt"
+        email="wisepine@kakao.com">
+        lauvsong
+    </vendor>
+
+    <description>
+        <![CDATA[
+        Super simple plugin to refactor selected code using ChatGPT.
+        Select the code, press alt + R, after few seconds the refactored code will be shown in a dialog.
+        Press the apply button to replace the selected code with the refactored code.
+        ]]>
+    </description>
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
-
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.lauvsong.refactorgpt.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <applicationConfigurable instance="com.lauvsong.refactorgpt.settings.SettingsConfig" />
+        <!-- ... other extensions ... -->
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.lauvsong.refactorgpt.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>
-    </applicationListeners>
+    <actions>
+        <action id="RefactorGptAction"
+                class="com.lauvsong.refactorgpt.action.RefactorGptAction"
+                text="Refactor with GPT"
+                description="Refactor selected code using ChatGPT">
+            <add-to-group group-id="RefactoringMenu" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt R"/>
+        </action>
+    </actions>
+
 </idea-plugin>
