@@ -35,11 +35,11 @@ jobs:
       - name: Fetch Sources
         uses: actions/checkout@v3
 
-      # Setup Java 11 environment for the next steps
+      # Setup Java environment for the next steps
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: zulu
+          distribution: temurin
           java-version: 11
 
       # Run IDEA prepared for UI testing
