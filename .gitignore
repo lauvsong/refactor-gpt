@@ -3,3 +3,6 @@
 .qodana
 build
 out
+*.pem
+*.jks
+*.crt
