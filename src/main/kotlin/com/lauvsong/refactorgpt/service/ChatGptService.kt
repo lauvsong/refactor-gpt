@@ -7,6 +7,7 @@ import com.lauvsong.refactorgpt.dto.response.ChatGptResponse
 import com.lauvsong.refactorgpt.exception.ChatGptAuthenticationException
 import com.lauvsong.refactorgpt.exception.ChatGptFetchFailureException
 import retrofit2.Response
+import java.net.SocketTimeoutException
 
 class ChatGptService(
     private val chatGptApi: ChatGptApi = ChatGptApi.create()
@@ -19,6 +20,9 @@ class ChatGptService(
         }.fold(
             onSuccess = { response -> onRefactorSuccess(response) },
             onFailure = { exception ->
+                if (exception is SocketTimeoutException) {
+                    throw ChatGptFetchFailureException("timeout error. Please check your network or set longer timeout in settings.")
+                }
                 throw ChatGptFetchFailureException(exception.message)
             }
         )
