@@ -11,6 +11,9 @@ import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.ui.Messages
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.codeStyle.CodeStyleManager
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBLoadingPanel
 import com.intellij.ui.components.JBScrollPane
@@ -149,8 +152,10 @@ class RefactorGptDialog(
     }
 
     private fun updateRefactoredCode(refactoredCode: String) {
+        val indentedCode = adjustIndentation(refactoredCode)
+
         WriteCommandAction.runWriteCommandAction(project) {
-            refactoredCodeEditor.document.setText(refactoredCode)
+            refactoredCodeEditor.document.setText(indentedCode)
         }
     }
 
@@ -189,5 +194,20 @@ class RefactorGptDialog(
                 replaceString(startOffset, endOffset, refactoredCode)
             }
         }
+    }
+
+    private fun adjustIndentation(refactoredCode: String): String {
+        val document = editorFactory.createDocument(refactoredCode)
+        val file = PsiDocumentManager.getInstance(project).getPsiFile(document)
+
+        if (file != null) {
+            val codeStyleManager = CodeStyleManager.getInstance(project)
+            val range = TextRange(0, document.textLength)
+
+            codeStyleManager.reformatText(file, range.startOffset, range.endOffset)
+            codeStyleManager.adjustLineIndent(file, range)
+        }
+
+        return document.text
     }
 }
