@@ -5,7 +5,7 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
 <!-- Plugin description -->
-Super simple plugin to refactor selected code using ChatGPT.
+Super simple Jetbrains plugin to **refactor selected code using ChatGPT**.
 1. Select the code
 2. Press alt + R
 3. After few seconds, the refactored code will be shown.

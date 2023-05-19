@@ -10,9 +10,12 @@
 
     <description>
         <![CDATA[
-        Super simple plugin to refactor selected code using ChatGPT.
-        Select the code, press alt + R, after few seconds the refactored code will be shown in a dialog.
-        Press the apply button to replace the selected code with the refactored code.
+Super simple Jetbrains plugin to **refactor selected code using ChatGPT**.
+1. Select the code
+2. Press alt + R
+3. After few seconds, the refactored code will be shown.
+4. Edit refactored code if you want.
+5. Enjoy!
         ]]>
     </description>
 
