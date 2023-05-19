@@ -60,8 +60,7 @@ class RefactorGptDialog(
     override fun createActions(): Array<Action> = emptyArray()
 
     override fun createCenterPanel(): JComponent {
-        val panel = JPanel()
-        // Your code to build the UI components layout
+        val panel = JPanel(BorderLayout())
 
         val originalCodeLabel = JBLabel("Original code:")
         val refactoredCodeLabel = JBLabel("Refactored code:")
@@ -71,9 +70,6 @@ class RefactorGptDialog(
 
         val originalCodeScrollPane = JBScrollPane(originalCodeEditor.component)
         val refactoredCodeScrollPane = JBScrollPane(refactoredCodeEditor.component)
-
-        originalCodeScrollPane.preferredSize = Dimension(600, 400)
-        refactoredCodeScrollPane.preferredSize = Dimension(600, 400)
 
         originalCodeScrollPane.horizontalScrollBar.value = 0
         refactoredCodeScrollPane.horizontalScrollBar.value = 0
