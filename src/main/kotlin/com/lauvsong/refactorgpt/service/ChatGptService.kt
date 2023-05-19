@@ -21,7 +21,7 @@ class ChatGptService(
             onSuccess = { response -> onRefactorSuccess(response) },
             onFailure = { exception ->
                 if (exception is SocketTimeoutException) {
-                    throw ChatGptFetchFailureException("timeout error. Please check your network or set longer timeout in settings.")
+                    throw ChatGptFetchFailureException("timeout error.\nPlease check your network or set longer timeout in settings.")
                 }
                 throw ChatGptFetchFailureException(exception.message)
             }

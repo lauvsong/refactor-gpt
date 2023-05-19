@@ -122,7 +122,6 @@ class RefactorGptDialog(
                     project,
                     """
                         Failed to refactor code: ${it.message}
-                        Please try again later.
                     """,
                     "Refactor Error"
                 )
