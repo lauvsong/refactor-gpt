@@ -10,7 +10,7 @@
 
     <description>
         <![CDATA[
-Super simple Jetbrains plugin to **refactor selected code using ChatGPT**.
+Super simple IntelliJ-based plugin to **refactor selected code using ChatGPT**.
 1. Select the code
 2. Press alt + R
 3. After few seconds, the refactored code will be shown.
@@ -19,7 +19,9 @@ Super simple Jetbrains plugin to **refactor selected code using ChatGPT**.
         ]]>
     </description>
 
-    <depends>com.intellij.modules.platform</depends>
+    <depends>
+        com.intellij.modules.platform
+    </depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable instance="com.lauvsong.refactorgpt.settings.SettingsConfig" />

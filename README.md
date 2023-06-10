@@ -5,16 +5,15 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
 <!-- Plugin description -->
-Super simple Jetbrains plugin to **refactor selected code using ChatGPT**.
+Super simple IntelliJ-based plugin to **refactor selected code using ChatGPT**.
 1. Select the code
 2. Press alt + R
-3. After few seconds, the refactored code will be shown.
 4. Edit refactored code if you want.
 5. Enjoy!
 <!-- Plugin description end -->
 
 ## Overview
-RefactorGPT is a super simple yet powerful JetBrains IDE plugin designed to **streamline your code refactoring process**.
+RefactorGPT is a super simple IntelliJ-based plugin designed to **streamline your code refactoring process**.
 Built on the technology of OpenAI's ChatGPT, this plugin assists developers by providing refined, improved code directly within their IDE of choice.
 
 ## Benefits
