@@ -6,10 +6,12 @@
 
 <!-- Plugin description -->
 Super simple IntelliJ-based plugin to **refactor selected code using ChatGPT**.
-1. Select the code
-2. Press alt + R
-4. Edit refactored code if you want.
-5. Enjoy!
+1. Configure your API key in Settings > Other Settings > RefactorGPT
+2. Select code to refactor in your editor
+3. Press alt + R(defult) or right click and select Refactor > Refactor with GPT
+4. After few seconds, the refactored code will be shown.
+5. Edit refactored code if you want.
+6. Enjoy!
 <!-- Plugin description end -->
 
 ## Overview
