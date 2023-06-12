@@ -16,7 +16,7 @@ data class ChatGptRequest(
                 You role is perfect code refactoring prompt.
                 Refactor the following code for better readability and maintainability.
                 Don't say ANY explain / small comments / empty lines / markdown code space.
-                Response ONLY code. file extension: $fileExtension
+                Response just ONLY code. Don't start with any backticks or file extension: $fileExtension
 
                 Here is the code:
                 ```
