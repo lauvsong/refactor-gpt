@@ -1,8 +1,8 @@
 # refactor-gpt
 
 ![Build](https://github.com/lauvsong/refactor-gpt/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/22014.svg)](https://plugins.jetbrains.com/plugin/22014)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/22014.svg)](https://plugins.jetbrains.com/plugin/22014)
 
 <!-- Plugin description -->
 Super simple IntelliJ-based plugin to **refactor selected code using ChatGPT**.
