@@ -35,7 +35,7 @@ Super simple IntelliJ-based plugin to **refactor selected code using ChatGPT**.
                 text="Refactor with GPT"
                 description="Refactor selected code using ChatGPT">
             <add-to-group group-id="RefactoringMenu" anchor="last"/>
-            <keyboard-shortcut keymap="$default" first-keystroke="alt R"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt R" replace-all="true"/>
         </action>
     </actions>
 
