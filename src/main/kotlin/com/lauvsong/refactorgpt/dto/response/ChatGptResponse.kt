@@ -15,6 +15,6 @@ data class ChatGptResponse(
 
     fun toRefactored(): Refactored =
         Refactored(
-            code = choices.first().text.removePrefix("Code:")
+            code = choices.first().text.substringAfter("Code:")
         )
 }
