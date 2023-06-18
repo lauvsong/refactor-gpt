@@ -116,21 +116,28 @@ class RefactorGptDialog(
     override fun show() {
         setLoading(true)
 
-        runCatching {
-            chatGptService.refactorCode(fileExtension, selectedCode)
-        }.fold(
-            onSuccess = { updateDialogWithRefactoredCode(it) },
-            onFailure = {
-                Messages.showErrorDialog(
-                    project,
-                    """
-                        Failed to refactor code: ${it.message}
-                    """,
-                    "Refactor Error"
-                )
-                return
-            }
-        ).also { setLoading(false) }
+        GlobalScope.launch(Dispatchers.IO) {
+            runCatching {
+                chatGptService.refactorCode(fileExtension, selectedCode)
+            }.fold(
+                onSuccess = { refactored ->
+                    withContext(Dispatchers.Main) {
+                        updateDialogWithRefactoredCode(refactored)
+                        setLoading(false)
+                    }
+                },
+                onFailure = {
+                    withContext(Dispatchers.Main) {
+                        Messages.showErrorDialog(
+                            project,
+                            "Failed to refactor code: ${it.message}",
+                            "Refactor Error"
+                        )
+                        setLoading(false)
+                    }
+                }
+            )
+        }
 
         super.show()
     }
