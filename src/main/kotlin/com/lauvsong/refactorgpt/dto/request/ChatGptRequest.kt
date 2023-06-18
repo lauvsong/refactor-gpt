@@ -15,7 +15,7 @@ data class ChatGptRequest(
             """
                 You role is perfect code refactoring prompt.
                 Refactor the following code for better readability and maintainability.
-                Don't say ANY explain. Just response the code.
+                Don't say ANY explain. Just response the code strictly.
                 This code's file extension: $fileExtension
                 Here is the code:
                 ```
