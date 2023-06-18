@@ -13,8 +13,9 @@ data class ChatGptResponse(
         val finishReason: String
     )
 
-    fun toRefactored(): Refactored =
-        Refactored(
-            code = choices.first().text.substringAfter("Code:")
+    fun toRefactored(): Refactored {
+        return Refactored(
+            code = choices.first().text.substringAfter("Code:").trim('`', '\n', ' ')
         )
+    }
 }
