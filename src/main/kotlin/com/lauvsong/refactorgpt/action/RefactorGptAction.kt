@@ -65,7 +65,7 @@ class RefactorGptAction : AnAction() {
     private fun showApiKeyWarning(project: Project) {
         Messages.showMessageDialog(
             project,
-            "Please Set Api Key. Settings > RefactorGPT",
+            "Please Set Api Key. Settings > Other Settings > RefactorGPT",
             "Api Key Not Found",
             Messages.getWarningIcon()
         )
