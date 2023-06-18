@@ -19,14 +19,18 @@ import com.intellij.ui.components.JBLoadingPanel
 import com.intellij.ui.components.JBScrollPane
 import com.lauvsong.refactorgpt.dto.Refactored
 import com.lauvsong.refactorgpt.service.ChatGptService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.awt.BorderLayout
-import java.awt.Dimension
 import javax.swing.Action
 import javax.swing.BorderFactory
 import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JSplitPane
+import javax.swing.SwingUtilities
 
 class RefactorGptDialog(
     private val editor: Editor,
@@ -36,12 +40,10 @@ class RefactorGptDialog(
     private val loadingPanel = JBLoadingPanel(BorderLayout(), disposable)
     private val applyButton = JButton("Apply")
     private val editorFactory: EditorFactory = EditorFactory.getInstance()
-    private val originalCodeEditor: EditorEx by lazy {
-        editorFactory.createViewer(editorFactory.createDocument(selectedCode), project) as EditorEx
-    }
-    private val refactoredCodeEditor: EditorEx by lazy {
+    private val originalCodeEditor: EditorEx =
+        editorFactory.createViewer(editorFactory.createDocument(selectedCode.trimIndent()), project) as EditorEx
+    private val refactoredCodeEditor: EditorEx =
         editorFactory.createEditor(editorFactory.createDocument(""), project) as EditorEx
-    }
     private val chatGptService = ChatGptService()
     private val fileExtension = FileDocumentManager.getInstance().getFile(editor.document)?.extension ?: "txt"
 
@@ -88,6 +90,7 @@ class RefactorGptDialog(
             isContinuousLayout = true
             dividerSize = 15
         }
+        SwingUtilities.invokeLater { splitPane.setDividerLocation(0.5) }
 
         val contentPanel = JPanel(BorderLayout())
         contentPanel.border = BorderFactory.createEmptyBorder(10, 10, 10, 10)
@@ -187,12 +190,19 @@ class RefactorGptDialog(
                 val endOffset = selectionModel.selectionEnd
 
                 replaceString(startOffset, endOffset, refactoredCode)
+
+                PsiDocumentManager.getInstance(project).commitDocument(this)
+
+                PsiDocumentManager.getInstance(project).getPsiFile(this)
+                    ?.let { file ->
+                        CodeStyleManager.getInstance(project).reformatText(file, startOffset, endOffset)
+                    }
             }
         }
     }
 
     private fun adjustIndentation(refactoredCode: String): String {
-        val document = editorFactory.createDocument(refactoredCode)
+        val document = editorFactory.createDocument(refactoredCode.trimIndent())
         val file = PsiDocumentManager.getInstance(project).getPsiFile(document)
 
         if (file != null) {
