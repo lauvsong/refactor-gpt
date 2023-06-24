@@ -153,10 +153,8 @@ class RefactorGptDialog(
     }
 
     private fun updateRefactoredCode(refactoredCode: String) {
-        val indentedCode = adjustIndentation(refactoredCode)
-
         WriteCommandAction.runWriteCommandAction(project) {
-            refactoredCodeEditor.document.setText(indentedCode)
+            refactoredCodeEditor.document.setText(refactoredCode.trimIndent())
         }
     }
 
@@ -202,20 +200,5 @@ class RefactorGptDialog(
                     }
             }
         }
-    }
-
-    private fun adjustIndentation(refactoredCode: String): String {
-        val document = editorFactory.createDocument(refactoredCode.trimIndent())
-        val file = PsiDocumentManager.getInstance(project).getPsiFile(document)
-
-        if (file != null) {
-            val codeStyleManager = CodeStyleManager.getInstance(project)
-            val range = TextRange(0, document.textLength)
-
-            codeStyleManager.reformatText(file, range.startOffset, range.endOffset)
-            codeStyleManager.adjustLineIndent(file, range)
-        }
-
-        return document.text
     }
 }
