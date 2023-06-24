@@ -19,10 +19,6 @@ import com.intellij.ui.components.JBLoadingPanel
 import com.intellij.ui.components.JBScrollPane
 import com.lauvsong.refactorgpt.dto.Refactored
 import com.lauvsong.refactorgpt.service.ChatGptService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.awt.BorderLayout
 import javax.swing.Action
 import javax.swing.BorderFactory
@@ -114,31 +110,30 @@ class RefactorGptDialog(
     }
 
     override fun show() {
-        setLoading(true)
-
-        GlobalScope.launch(Dispatchers.IO) {
+         Thread {
             runCatching {
                 chatGptService.refactorCode(fileExtension, selectedCode)
             }.fold(
                 onSuccess = { refactored ->
-                    withContext(Dispatchers.Main) {
+                    SwingUtilities.invokeLater {
                         updateDialogWithRefactoredCode(refactored)
                         setLoading(false)
                     }
                 },
-                onFailure = {
-                    withContext(Dispatchers.Main) {
+                onFailure = { exception ->
+                    SwingUtilities.invokeLater {
                         Messages.showErrorDialog(
                             project,
-                            "Failed to refactor code: ${it.message}",
+                            "Failed to refactor code: ${exception.message}",
                             "Refactor Error"
                         )
                         setLoading(false)
                     }
                 }
             )
-        }
+        }.start()
 
+        setLoading(true)
         super.show()
     }
 
