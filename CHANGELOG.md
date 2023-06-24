@@ -6,6 +6,11 @@
 
 ## [0.0.4] - 2023-06-26
 
+### Changed
+
+- The RefactorGPT dialog now closed immediately when failed to get ChatGPT response.
+- Improved clarity of the prompt.
+
 ### Fixed
 
 - Resolved suspending UI issue when requesting ChatGPT API.
