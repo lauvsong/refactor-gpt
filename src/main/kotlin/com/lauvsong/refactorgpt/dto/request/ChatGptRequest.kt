@@ -22,7 +22,7 @@ data class ChatGptRequest(
                 $code
                 ```
 
-                Start with the line 'Code:'
+                Respond start with the line 'Code:'
             """.trimIndent()
     }
 }
