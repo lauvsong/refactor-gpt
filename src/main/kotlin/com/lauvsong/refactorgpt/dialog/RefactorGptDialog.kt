@@ -128,6 +128,7 @@ class RefactorGptDialog(
                             "Refactor Error"
                         )
                         setLoading(false)
+                        super.close(OK_EXIT_CODE)
                     }
                 }
             )
