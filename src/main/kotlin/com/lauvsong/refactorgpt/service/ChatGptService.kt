@@ -15,8 +15,8 @@ class ChatGptService(
 
     fun refactorCode(fileExtension: String, code: String): Refactored =
         runCatching {
-            ChatGptRequest.of(fileExtension, code)
-                .let { chatGptApi.refactorCode(it).execute() }
+            val chatGptRequest = ChatGptRequest.of(fileExtension, code)
+             chatGptApi.refactorCode(chatGptRequest).execute()
         }.fold(
             onSuccess = { response -> onRefactorSuccess(response) },
             onFailure = { exception ->
@@ -29,6 +29,6 @@ class ChatGptService(
 
     private fun onRefactorSuccess(response: Response<ChatGptResponse>): Refactored =
         takeUnless { response.code() == 401 }
-            ?.let { response.body()?.toRefactored() }
+            ?.let {response.body()?.toRefactored() }
             ?: throw ChatGptAuthenticationException()
 }

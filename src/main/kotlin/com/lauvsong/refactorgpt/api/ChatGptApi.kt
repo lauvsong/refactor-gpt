@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 fun interface ChatGptApi {
 
-    @POST("v1/completions")
+    @POST("v1/chat/completions")
     fun refactorCode(@Body request: ChatGptRequest): Call<ChatGptResponse>
 
     companion object {
