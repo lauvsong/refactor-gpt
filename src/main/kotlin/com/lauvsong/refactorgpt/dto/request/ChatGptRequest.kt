@@ -13,15 +13,14 @@ data class ChatGptRequest(
 
         private fun makePrompt(fileExtension: String, code: String): String =
             """
-                You role is perfect code refactoring prompt.
+                You role is code refactoring output.
                 Refactor the following code for better readability and maintainability.
-                Don't say ANY explain. Just response the code strictly.
+                Return only the refactored code and don't explain anything.
                 This code's file extension: $fileExtension
                 Here is the code:
                 ```
                 $code
                 ```
-
                 Respond start with the line 'Code:'
             """.trimIndent()
     }
