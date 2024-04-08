@@ -21,14 +21,38 @@ class ChatGptService(
             onSuccess = { response -> onRefactorSuccess(response) },
             onFailure = { exception ->
                 if (exception is SocketTimeoutException) {
-                    throw ChatGptFetchFailureException("timeout error.\nPlease check your network or set longer timeout in settings.")
+                    throw ChatGptFetchFailureException(
+                        """
+                        timeout error.
+                        Please check your network or set longer timeout in settings.
+                        """
+                    )
                 }
                 throw ChatGptFetchFailureException(exception.message)
             }
         )
 
-    private fun onRefactorSuccess(response: Response<ChatGptResponse>): Refactored =
-        takeUnless { response.code() == 401 }
-            ?.let { response.body()?.toRefactored() }
-            ?: throw ChatGptAuthenticationException()
+    private fun onRefactorSuccess(response: Response<ChatGptResponse>): Refactored {
+        if (response.code() == 401) {
+            throw ChatGptAuthenticationException()
+        }
+
+        val body = response.body()
+            ?: throw ChatGptFetchFailureException("OpenAI's response body is null.")
+
+        if (response.isSuccessful.not()) {
+            throw ChatGptFetchFailureException("${response.errorBody()?.string()}")
+        }
+
+        if (body.getFinishReason() == "length") {
+            throw ChatGptFetchFailureException(
+                """
+                The response exceeds the maximum token limit.
+                Please try again with a shorter code.
+                """
+            )
+        }
+
+        return body.toRefactored()
+    }
 }
