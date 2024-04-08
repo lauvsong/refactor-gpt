@@ -18,4 +18,8 @@ data class ChatGptResponse(
             code = choices.first().text.substringAfter("Code:").trim('`', '\n', ' ')
         )
     }
+
+    fun getFinishReason(): String {
+        return choices.first().finishReason
+    }
 }
